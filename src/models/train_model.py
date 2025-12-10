@@ -13,7 +13,7 @@ def main() -> NoReturn:
     model = Ridge(alpha=params['alpha'])
 
     model.fit(X_train, y_train)
-    model_filename = './models/trained_model.joblib'
+    model_filename = 'models/trained_model.joblib'
     joblib.dump(model, model_filename)
 
 if __name__ == '__main__':

@@ -43,11 +43,10 @@ stages:
       md5: ce66ba47460d57ccddd2fde40e4d2ef1
       size: 815
     outs:
-    - path: models
+    - path: models/best_params.pck
       hash: md5
-      md5: 0f0c2cc5d6233b7595c585432356356a.dir
+      md5: ae84996c8af8dae7d8b5b90d87386d24
       size: 25
-      nfiles: 1
   train:
     cmd: python src/models/train_model.py
     deps:
@@ -56,15 +55,19 @@ stages:
       md5: 1ec23b05563b590b4bc309b084a53be6.dir
       size: 579077
       nfiles: 6
-    - path: models
+    - path: models/best_params.pck
       hash: md5
-      md5: 2e26b235bca74ddd2ee85165317daee7.dir
-      size: 1016
-      nfiles: 2
+      md5: ae84996c8af8dae7d8b5b90d87386d24
+      size: 25
     - path: src/models/train_model.py
       hash: md5
-      md5: 35ae8dec254219522e39bd17bc2fc1f5
-      size: 579
+      md5: f255af22911c423a5877921045d18352
+      size: 577
+    outs:
+    - path: models/trained_model.joblib
+      hash: md5
+      md5: 4a48c5afa09b739b0b6e52c168249a30
+      size: 991
   predict:
     cmd: python src/models/predict_model.py
     deps:
@@ -83,8 +86,7 @@ stages:
       md5: 86f74ff033461a29ad2e6f900934b172
       size: 837
     outs:
-    - path: metrics
+    - path: metrics/scores.json
       hash: md5
-      md5: 7aa6bd16176854dd2456b3e1f8f140cf.dir
+      md5: 02859d6f08e384718dbb2d5e0ab477fe
       size: 42
-      nfiles: 1

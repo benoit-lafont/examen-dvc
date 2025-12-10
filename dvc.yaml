@@ -17,13 +17,15 @@ stages:
     - data/processed_data
     - src/models/find_best_param_model.py
     outs:
-    - models
+    - models/best_params.pck
   train:
     cmd: python src/models/train_model.py
     deps:
     - data/processed_data
-    - models
+    - models/best_params.pck
     - src/models/train_model.py
+    outs:
+    - models/trained_model.joblib
   predict:
     cmd: python src/models/predict_model.py
     deps:
@@ -31,5 +33,5 @@ stages:
     - models
     - src/models/predict_model.py
     metrics:
-    - metrics:
+    - metrics/scores.json:
         cache: false
