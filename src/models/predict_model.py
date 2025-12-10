@@ -3,6 +3,7 @@ import pandas as pd
 import joblib
 from sklearn.metrics import mean_squared_error
 import json
+import os
 
 def main() -> NoReturn:
     X_test = pd.read_csv("data/processed_data/X_test_scaled.csv")
@@ -13,6 +14,9 @@ def main() -> NoReturn:
     metrics = {"mean_squared_error": mse}
     prediction_df = pd.DataFrame(prediction, columns=["silica_concentrate"])
     prediction_df.to_csv("data/processed_data/predictions.csv")
+    if os.path.exists('metrics') == False:
+        os.makedirs('metrics')
+
     with open('metrics/scores.json', 'w') as f:
         json.dump(metrics, f)
 

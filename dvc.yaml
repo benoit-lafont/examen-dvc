@@ -1,0 +1,35 @@
+stages:
+  split:
+    cmd: python src/data/split_dataset.py
+    deps:
+    - data/raw_data
+    - src/data/split_dataset.py
+    outs:
+    - data/processed_data
+  normalize:
+    cmd: python src/data/normalize_dataset.py
+    deps:
+    - data/processed_data
+    - src/data/normalize_dataset.py
+  best_param:
+    cmd: python src/models/find_best_param_model.py
+    deps:
+    - data/processed_data
+    - src/models/find_best_param_model.py
+    outs:
+    - models
+  train:
+    cmd: python src/models/train_model.py
+    deps:
+    - data/processed_data
+    - models
+    - src/models/train_model.py
+  predict:
+    cmd: python src/models/predict_model.py
+    deps:
+    - data/processed_data
+    - models
+    - src/models/predict_model.py
+    metrics:
+    - metrics:
+        cache: false

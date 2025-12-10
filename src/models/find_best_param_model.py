@@ -3,6 +3,7 @@ import pandas as pd
 from sklearn.model_selection import GridSearchCV
 from sklearn.linear_model import Ridge
 import pickle
+import os
 
 def main() -> NoReturn:
     X_train = pd.read_csv("data/processed_data/X_train_scaled.csv")
@@ -18,6 +19,8 @@ def main() -> NoReturn:
         scoring="neg_mean_squared_error"
     )
     model.fit(X_train, y_train)
+    if os.path.exists('models') == False:
+        os.makedirs('models')
     with open("models/best_params.pck", "wb") as f:
         pickle.dump(model.best_params_, f)
 
